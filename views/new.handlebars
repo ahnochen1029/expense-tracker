@@ -1,0 +1,73 @@
+<div class="container mx-auto my-5" style="color:white; background:#00758F; border-radius:8px; width: 540px">
+  <h2 class="text-center pt-3">新增支出明細</h2>
+  <div class="p-3 mt-3">
+    <form action="/expensetracker" method="POST" class="font-weight-light">
+      <!-- 名稱  -->
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <input type="text" name="name" class="form-control" id="name" placeholder="請輸入名稱" required>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <!-- 類別  -->
+      {{!-- <div class="form-group row">
+        <div class="col-sm">
+          <select class="form-control mt-4" name="category" id="category">
+            <option disabled selected>類別</option>
+            <option value="家居物業|fas fa-home">家居物業</option>
+            <option value="交通出行|fas fa-shuttle-van">交通出行</option>
+            <option value="休閒娛樂|fas fa-grin-beam">休閒娛樂</option>
+            <option value="餐飲食品|fas fa-utensils">餐飲食品</option>
+            <option value="其他|fas fa-pen">其他</option>
+          </select>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div> --}}
+
+      <div class="form-group row">
+        <div class="col-sm">
+          <select name="category" value="" class="custom-select form-control" id="inputGroupSelect01">
+            <option value="其他,fas fa-pen">選擇類別</option>
+            {{#each category}}
+            <option value="{{this.category}},{{this.icon}}">{{this.category}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+
+
+
+      <!-- 日期 -->
+      <div class="form-group row">
+        <div class="col-sm">
+          {{!-- <input type="text" name="date" class="form-control" id="date" placeholder="日期 格式 XXXX-XX-XX" required> --}}
+          <input id="date" type="date" name="date" class="form-control" required>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <!-- 金額  -->
+      <div class="form-group row">
+        <div class="col-sm">
+          <input type="number" name="amount" class="form-control" id="amount" placeholder="請輸入金額">
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm text-center">
+          <button type="submit" class="btn btn-warning" style="color:white" id="createItem">新增支出</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

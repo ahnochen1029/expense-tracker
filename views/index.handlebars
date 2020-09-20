@@ -14,18 +14,25 @@
     <h1 style="text-align: end">$400</h1>
   </div>
   <div>
-    <a class="btn" href="/">新增支出明細</a>
+    <a class="btn" href="/new">新增支出明細</a>
   </div>
   <ul>
+    {{#each records}}
     <li class='list-group-item'>
       <div class="row">
         <div class="col-auto mr-auto">
-          <h4 style="display: inline; vertical-align: middle;">
-            <i class="fas fa-utensils">
-              <h3>test</h3>
-            </i>
-
-          </h4>
+          <div class="row col-md-9">
+            <h3 class="col-auto">
+              <i class='{{this.icon}}'></i>
+            </h3>
+            <div class="col-md">
+              <h4>{{this.name}}</h4>
+              <h5>{{this.date}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>$ {{this.amount}}</h3>
         </div>
         <div class="col-auto">
           <a class="btn btn-success" href="">edit</a>
@@ -35,6 +42,7 @@
         </div>
       </div>
     </li>
+    {{/each}}
   </ul>
 
 </div>

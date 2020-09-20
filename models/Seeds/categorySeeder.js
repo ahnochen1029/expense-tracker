@@ -9,23 +9,23 @@ db.once('open', () => {
   category.create(
     {
       category: '家居物業',
-      icon: '<i class="fas fa-home"></i>'
+      icon: 'fas fa-home'
     },
     {
       category: '交通出行',
-      icon: '<i class="fas fa-shuttle-van"></i>'
+      icon: 'fas fa-shuttle-van'
     },
     {
       category: '休閒娛樂',
-      icon: '<i class="fas fa-grin-beam"></i>'
+      icon: 'fas fa-grin-beam'
     },
     {
       category: '餐飲食品',
-      icon: '<i class="fas fa-utensils"></i>'
+      icon: 'fas fa-utensils'
     },
     {
       category: '其他',
-      icon: '<i class="fas fa-pen"></i>'
+      icon: 'fas fa-pen'
     }
   )
   console.log('mongodb connected!')
