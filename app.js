@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 app.get('/expensetracker/new', (req, res) => {
   Category.find()
     .lean()
-    .then(category => res.render('new', 'edit', { category }))
+    .then(category => res.render('new', { category }))
 })
 
 app.post('/expensetracker', (req, res) => {
