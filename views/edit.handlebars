@@ -1,0 +1,58 @@
+<div class="container mx-auto my-5">
+  <h2 class="text-center pt-3">編輯支出明細</h2>
+  <div class="p-3 mt-3">
+    <form action="/expensetracker/{{ record._id }}" method="POST" class="font-weight-light">
+      <!--支出名稱-->
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <input type="text" name="name" value="{{ record.name }}" class="form-control" required>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <!--品項分類-->
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <select name="category" value="" class="custom-select form-control" id="categories" required>
+            <option value="其他,fas fa-pen">選擇類別</option>
+            {{#each category}}
+            <option value="{{this.category}},{{this.icon}}">{{this.category}}</option>
+            {{/each}}
+          </select>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <!--日期-->
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <input id="date" type="date" name="date" class="form-control" value="{{record.date}}" required>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <!--金額-->
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <input id="amount" type="number" name="amount" class="form-control" value="{{ record.amount }}" required>
+          <i class="fas fa-exclamation-triangle mr-2">
+            <span>必填欄位</span>
+          </i>
+        </div>
+      </div>
+
+      <!--Submit-->
+      <div class="form-group row">
+        <div class="col-sm text-center">
+          <button type="submit" class="btn btn-warning">確認送出</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,8 @@ const mongoose = require('mongoose')
 const Record = require('./models/record')
 const Category = require('./models/category')
 const category = require('./models/category')
+const hbshelpers = require('handlebars-helpers')
+const record = require('./models/record')
 
 mongoose.connect("mongodb://localhost/expense-tracker", { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -21,7 +23,7 @@ db.once('open', () => {
 const app = express()
 const port = 3000
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: hbshelpers() }))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -34,10 +36,11 @@ app.get('/', (req, res) => {
     .catch(err => console.log(err))
 })
 
+//new
 app.get('/expensetracker/new', (req, res) => {
   Category.find()
     .lean()
-    .then(category => res.render('new', { category }))
+    .then(category => res.render('new', 'edit', { category }))
 })
 
 app.post('/expensetracker', (req, res) => {
@@ -58,6 +61,49 @@ app.post('/expensetracker', (req, res) => {
   })
     .then(() => { res.redirect('/') })
     .catch(err => console.log(err))
+})
+
+//edit
+
+app.get('/expensetracker/:id/edit', (req, res) => {
+  const id = req.params.id
+  console.log('id', id)
+
+  return Record.findById(id)
+    .lean()
+    .then((record) => {
+      Category.find()
+        .lean()
+        .then(category => {
+          const newCategories = category.filter(element => element.name !== record.category)
+          res.render('edit', { record, category: newCategories })
+        })
+    })
+    .catch(err => console.log(err))
+})
+
+app.post('/expensetracker/:id', (req, res) => {
+  const id = req.params.id
+  let name = req.body.name
+  let category = req.body.category
+  let date = req.body.date
+  let amount = req.body.amount
+  let icon = req.body.icon
+  let categoryArr = []
+  categoryArr = categoryArr.concat(category.split(','))
+  return Record.findById(id)
+    .then(record => {
+      record.name = name
+      record.category = category
+      record.date = date
+      record.amount = amount
+      record.icon = categoryArr[1]
+      return record.save()
+    })
+    .then(() => {
+      return res.redirect('/')
+    })
+    .catch(err => console.loge(err))
 })
 
 
