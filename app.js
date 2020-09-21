@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.get('/new', (req, res) => {
+app.get('/expensetracker/new', (req, res) => {
   Category.find()
     .lean()
     .then(category => res.render('new', { category }))
