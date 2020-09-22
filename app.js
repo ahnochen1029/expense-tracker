@@ -94,7 +94,7 @@ app.get('/expensetracker/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.post('/expensetracker/:id/edit', (req, res) => {
+app.put('/expensetracker/:id', (req, res) => {
   const id = req.params.id
   let name = req.body.name
   let category = req.body.category
@@ -119,7 +119,7 @@ app.post('/expensetracker/:id/edit', (req, res) => {
 })
 
 //delete
-app.post('/expensetracker/:id/delete', (req, res) => {
+app.delete('/expensetracker/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
     .then(record => record.remove())
