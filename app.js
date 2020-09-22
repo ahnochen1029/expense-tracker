@@ -3,11 +3,11 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
+const hbshelpers = require('handlebars-helpers')
 
 const Record = require('./models/record')
 const Category = require('./models/category')
 const category = require('./models/category')
-const hbshelpers = require('handlebars-helpers')
 const record = require('./models/record')
 
 mongoose.connect("mongodb://localhost/expense-tracker", { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,14 +25,27 @@ const port = 3000
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: hbshelpers() }))
 app.set('view engine', 'handlebars')
-app.use(express.static('public'))
+
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
+
+app.use(express.static('public'))
+
 
 app.get('/', (req, res) => {
   Record.find()
     .lean()
-    .then(records => res.render('index', { records }))
+    .then(records => {
+      let totalAmount = Number()
+      records.forEach(item => {
+        totalAmount += Number(item.amount)
+      })
+      return res.render('index', {
+        records,
+        totalAmount: totalAmount.toLocaleString('zh-tw')
+      })
+    })
     .catch(err => console.log(err))
 })
 
@@ -49,9 +62,11 @@ app.post('/expensetracker', (req, res) => {
   const date = req.body.date
   const amount = req.body.amount
   const icon = req.body.icon
+
   let categoryArr = []
   categoryArr = categoryArr.concat(category.split(','))
   console.log("categoryArr", categoryArr)
+
   return Record.create({
     name: name,
     category: categoryArr[0],
@@ -64,11 +79,8 @@ app.post('/expensetracker', (req, res) => {
 })
 
 //edit
-
 app.get('/expensetracker/:id/edit', (req, res) => {
   const id = req.params.id
-  console.log('id', id)
-
   return Record.findById(id)
     .lean()
     .then((record) => {
@@ -82,7 +94,7 @@ app.get('/expensetracker/:id/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.post('/expensetracker/:id', (req, res) => {
+app.post('/expensetracker/:id/edit', (req, res) => {
   const id = req.params.id
   let name = req.body.name
   let category = req.body.category
@@ -107,7 +119,6 @@ app.post('/expensetracker/:id', (req, res) => {
 })
 
 //delete
-
 app.post('/expensetracker/:id/delete', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
@@ -115,6 +126,13 @@ app.post('/expensetracker/:id/delete', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
+
+//sort
+// app.get('/sort', (req, res) => {
+//   const sort = req.query.sort
+//   console.log('sort', sort)
+
+// })
 
 app.listen(port, () => {
   console.log(`The app is runnung on http://localhost:${port}`)
