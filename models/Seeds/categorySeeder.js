@@ -1,4 +1,4 @@
-const Category = require('../../models/category')
+const Category = require('../category')
 
 const db = require('../../config/mongoose')
 
