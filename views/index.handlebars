@@ -1,13 +1,13 @@
 <div class="container">
   <div class="form-group">
     <form action="/sort" method="GET">
-      <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()">
-        <option disabled selected>類別</option>
-        <option value="house">家居物業</option>
-        <option value="transportation">交通出行</option>
-        <option value="entertainment">休閒娛樂</option>
-        <option value="food">餐飲食品</option>
-        <option value="others">其他</option>
+      <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()" name='sort'>
+        <option value="類別" disabled selected>類別</option>
+        <option value="家居物業">家居物業</option>
+        <option value="交通出行">交通出行</option>
+        <option value="休閒娛樂">休閒娛樂</option>
+        <option value="餐飲食品">餐飲食品</option>
+        <option value="其他">其他</option>
       </select>
       <noscript><input type="submit" value="Submit"></noscript>
     </form>
@@ -15,7 +15,7 @@
   </div>
   <div class="totalAmout mb-5">
     <h3>總金額:</h3>
-    <h1 style="text-align: end">{{totalAmount}}</h1>
+    <h1 style="text-align: end">$ {{totalAmount}}</h1>
   </div>
   <div>
     <a class="btn" href="/expensetracker/new">新增支出明細</a>

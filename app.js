@@ -128,11 +128,41 @@ app.delete('/expensetracker/:id', (req, res) => {
 })
 
 //sort
-// app.get('/sort', (req, res) => {
-//   const sort = req.query.sort
-//   console.log('sort', sort)
+app.get('/sort', (req, res) => {
+  const sort = req.query.sort
+  console.log('sort', sort)
+  Record.find()
+    .lean()
+    .then(records => {
+      let filterRecord = records.filter(item => {
+        console.log('item.category', item.category)
+        return item.category === sort
+      })
 
-// })
+      if (sort === 'house') filterRecord = records
+      let filterAmount = Number()
+      filterRecord.forEach(item => {
+        filterAmount += Number(item.amount)
+      })
+      Category.find()
+        .lean()
+        .sort({ date: 'asc' })
+        .then(category => {
+          const newCategory = []
+          category.forEach(item => {
+            newCategory.push(item)
+          })
+          console.log('newCategory', newCategory)
+          return res.render('index', {
+            records: filterRecord,
+            category: newCategory,
+            totalAmount: filterAmount.toLocaleString('zh-TW'),
+            sort,
+          })
+        })
+    })
+    .catch(err => console.log(err))
+})
 
 app.listen(port, () => {
   console.log(`The app is runnung on http://localhost:${port}`)
