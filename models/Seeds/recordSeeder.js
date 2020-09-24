@@ -1,10 +1,10 @@
-const record = require('../record')
+const Record = require('../../models/record')
 
 const db = require('../../config/mongoose')
 
 
 db.once('open', () => {
-  record.create(
+  Record.create(
     {
       name: '鐵板燒',
       category: '餐飲食品',

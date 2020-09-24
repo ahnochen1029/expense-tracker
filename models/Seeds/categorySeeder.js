@@ -1,9 +1,9 @@
-const category = require('../category')
+const Category = require('../../models/category')
 
 const db = require('../../config/mongoose')
 
 db.once('open', () => {
-  category.create(
+  Category.create(
     {
       category: '家居物業',
       icon: 'fas fa-home'
