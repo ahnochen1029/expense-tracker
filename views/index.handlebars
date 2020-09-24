@@ -1,13 +1,13 @@
 <div class="container">
   <div class="form-group">
-    <form action="/sort" method="GET">
-      <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()" name='sort'>
+    <form action="/filter" method="GET">
+      <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()" name='filter'>
         <option value="類別" disabled selected>類別</option>
-        <option value="家居物業">家居物業</option>
-        <option value="交通出行">交通出行</option>
-        <option value="休閒娛樂">休閒娛樂</option>
-        <option value="餐飲食品">餐飲食品</option>
-        <option value="其他">其他</option>
+        <option value="家居物業" {{#is filterCategory "家居物業"}} selected {{/is}}>家居物業</option>
+        <option value="交通出行" {{#is filterCategory "交通出行"}} selected {{/is}}>交通出行</option>
+        <option value="休閒娛樂" {{#is filterCategory "休閒娛樂"}} selected {{/is}}>休閒娛樂</option>
+        <option value="餐飲食品" {{#is filterCategory "餐飲食品"}} selected {{/is}}>餐飲食品</option>
+        <option value="其他" {{#is filterCategory "其他"}} selected {{/is}}>其他</option>
       </select>
       <noscript><input type="submit" value="Submit"></noscript>
     </form>

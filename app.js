@@ -106,7 +106,7 @@ app.put('/expensetracker/:id', (req, res) => {
   return Record.findById(id)
     .then(record => {
       record.name = name
-      record.category = category
+      record.category = categoryArr[0]
       record.date = date
       record.amount = amount
       record.icon = categoryArr[1]
@@ -127,37 +127,27 @@ app.delete('/expensetracker/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
-//sort
-app.get('/sort', (req, res) => {
-  const sort = req.query.sort
-  console.log('sort', sort)
+//filter
+app.get('/filter', (req, res) => {
+  const filterCategory = req.query.filter
   Record.find()
     .lean()
     .then(records => {
       let filterRecord = records.filter(item => {
-        console.log('item.category', item.category)
-        return item.category === sort
+        return item.category === filterCategory
       })
-
-      if (sort === 'house') filterRecord = records
-      let filterAmount = Number()
+      let filterAmount = 0
       filterRecord.forEach(item => {
         filterAmount += Number(item.amount)
       })
       Category.find()
         .lean()
-        .sort({ date: 'asc' })
+        .sort({ _id: 'asc' })
         .then(category => {
-          const newCategory = []
-          category.forEach(item => {
-            newCategory.push(item)
-          })
-          console.log('newCategory', newCategory)
           return res.render('index', {
             records: filterRecord,
-            category: newCategory,
             totalAmount: filterAmount.toLocaleString('zh-TW'),
-            sort,
+            filterCategory,
           })
         })
     })
