@@ -1,6 +1,6 @@
 <div class="container">
   <div class="form-group">
-    <form action="/filter" method="GET">
+    <form action="/expensetracker/filter" method="GET">
       <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()" name='filter'>
         <option value="類別" disabled selected>類別</option>
         <option value="家居物業" {{#is filterCategory "家居物業"}} selected {{/is}}>家居物業</option>
