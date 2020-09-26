@@ -17,16 +17,12 @@ router.get('/filter', (req, res) => {
       filterRecord.forEach(item => {
         filterAmount += Number(item.amount)
       })
-      Category.find()
-        .lean()
-        .sort({ _id: 'asc' })
-        .then(category => {
-          return res.render('index', {
-            records: filterRecord,
-            totalAmount: filterAmount.toLocaleString('zh-TW'),
-            filterCategory,
-          })
-        })
+
+      return res.render('index', {
+        records: filterRecord,
+        totalAmount: filterAmount.toLocaleString('zh-TW'),
+        filterCategory,
+      })
     })
     .catch(err => console.log(err))
 })
@@ -68,8 +64,8 @@ router.get('/:id/edit', (req, res) => {
       Category.find()
         .lean()
         .then(category => {
-          const newCategories = category.filter(element => element.name !== record.category)
-          res.render('edit', { record, category: newCategories })
+          // const newCategories = category.filter(item => item.category !== record.category)
+          res.render('edit', { record, category })
         })
     })
     .catch(err => console.log(err))
