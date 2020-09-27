@@ -15,8 +15,11 @@
       <!--品項分類-->
       <div class="form-group row">
         <div class="col-sm-12">
-          <select name="category" value="" class="custom-select form-control" id="categories" required>
-            <option value="其他,fas fa-pen">選擇類別</option>
+          <select name="category" class="custom-select form-control" id="categories" required>
+            {{#each selectedCategory}}
+            <option value="{{this.category}},{{this.icon}}">{{this.category}}</option>
+            {{/each}}
+
             {{#each category}}
             <option value="{{this.category}},{{this.icon}}">{{this.category}}</option>
             {{/each}}

@@ -64,8 +64,9 @@ router.get('/:id/edit', (req, res) => {
       Category.find()
         .lean()
         .then(category => {
-          // const newCategories = category.filter(item => item.category !== record.category)
-          res.render('edit', { record, category })
+          const newCategories = category.filter(item => item.category !== record.category)
+          const selectedCategory = category.filter(item => item.category === record.category)
+          res.render('edit', { record, category: newCategories, selectedCategory })
         })
     })
     .catch(err => console.log(err))
