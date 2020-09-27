@@ -41,5 +41,5 @@ db.once('open', () => {
       icon: 'fas fa-pen'
     },
   )
-  console.log('done!')
+  console.log('mongodb_record connected!')
 })

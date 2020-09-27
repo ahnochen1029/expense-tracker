@@ -25,6 +25,6 @@ db.once('open', () => {
       icon: 'fas fa-pen'
     }
   )
-  console.log('mongodb connected!')
+  console.log('mongodb_category connected!')
   db.close()
 })
