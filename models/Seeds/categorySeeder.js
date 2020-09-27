@@ -26,4 +26,5 @@ db.once('open', () => {
     }
   )
   console.log('mongodb connected!')
+  db.close()
 })
