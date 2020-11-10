@@ -3,7 +3,6 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
-
 //filter
 router.get('/filter', (req, res) => {
   const filterCategory = req.query.filter

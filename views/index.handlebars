@@ -1,7 +1,12 @@
 <div class="container">
-  <div class="form-group">
+  <div class="totalAmout mt-5">
+    <h3 class="text-center">總金額:</h3>
+    <h1 class="pr-3" style="text-align: end">$ {{totalAmount}}</h1>
+  </div>
+  <div class="form-group ml-5">
     <form action="/expensetracker/filter" method="GET">
-      <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()" name='filter'>
+      <select class="form-control mt-4" id="sortCategory" onchange="this.form.submit()" name='filter'
+        style="width: fit-content;">
         <option disabled selected>類別</option>
         <option value="家居物業" {{#is filterCategory "家居物業"}} selected {{/is}}>家居物業</option>
         <option value="交通出行" {{#is filterCategory "交通出行"}} selected {{/is}}>交通出行</option>
@@ -11,17 +16,34 @@
       </select>
       <noscript><input type="submit" value="Submit"></noscript>
     </form>
-
   </div>
-  <div class="totalAmout mb-5">
-    <h3 class="text-center">總金額:</h3>
-    <h1 style="text-align: end">$ {{totalAmount}}</h1>
-  </div>
-  <div>
-    <a class="btn" href="/expensetracker/new">新增支出明細</a>
+  <div class="pl-5">
+    <a class="btn btn-light" href="/expensetracker/new">新增支出明細</a>
   </div>
 
   <div class="container mt-3">
+    <ul class="mb-0">
+      <li class='list-group-item' style="background-color:burlywood;">
+        <div class="row d-flex align-items-center">
+          <div class="row col-10 mr-auto align-items-center">
+            <div class="row col-md-9">
+              <h2 class="mx-3 my-auto" style='width:30px'>
+                <i class=''></i>
+              </h2>
+              <div class="col-md-3">
+                <h6 class="mb-0">支出名稱/日期</h6>
+              </div>
+              <div class="col-md-3 my-auto">
+                <h6 class="mb-0">商家名稱</h6>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <h6 class="my-auto">支出金額</h6>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
     <ul>
       {{#each records}}
       <li class='list-group-item'>
