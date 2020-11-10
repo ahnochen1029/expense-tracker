@@ -9,6 +9,9 @@ const recordSchema = new Schema({
     type: String,
     required: true
   },
+  merchant: {
+    type: String,
+  },
   date: {
     type: String,
     required: true

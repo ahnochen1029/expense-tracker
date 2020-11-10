@@ -26,5 +26,4 @@ db.once('open', () => {
     }
   )
   console.log('mongodb_category connected!')
-  db.close()
 })

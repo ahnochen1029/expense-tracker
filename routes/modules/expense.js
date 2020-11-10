@@ -35,20 +35,15 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const name = req.body.name
-  console.log('name', name)
-  const category = req.body.category
-  const date = req.body.date
-  const amount = req.body.amount
-  const icon = req.body.icon
-
+  const { name, category, merchant, date, amount, icon } = req.body
   let categoryArr = []
   categoryArr = categoryArr.concat(category.split(','))
   return Record.create({
-    name: name,
+    name,
     category: categoryArr[0],
-    date: date,
-    amount: amount,
+    merchant,
+    date,
+    amount,
     icon: categoryArr[1]
   })
     .then(() => { res.redirect('/') })
@@ -74,17 +69,14 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  let name = req.body.name
-  let category = req.body.category
-  let date = req.body.date
-  let amount = req.body.amount
-  let icon = req.body.icon
+  let { name, category, merchant, date, amount, icon } = req.body
   let categoryArr = []
   categoryArr = categoryArr.concat(category.split(','))
   return Record.findById(id)
     .then(record => {
       record.name = name
       record.category = categoryArr[0]
+      record.merchant = merchant
       record.date = date
       record.amount = amount
       record.icon = categoryArr[1]
