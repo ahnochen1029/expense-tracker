@@ -6,7 +6,8 @@ const Category = require('../../models/category')
 //filter
 router.get('/filter', (req, res) => {
   const filterCategory = req.query.filter
-  Record.find()
+  const userId = req.user._id
+  Record.find({ userId })
     .lean()
     .then(records => {
       let filterRecord = records.filter(item => {
@@ -35,6 +36,7 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const { name, category, merchant, date, amount, icon } = req.body
+  const userId = req.user._id
   let categoryArr = []
   categoryArr = categoryArr.concat(category.split(','))
   return Record.create({
@@ -43,7 +45,8 @@ router.post('/', (req, res) => {
     merchant,
     date,
     amount,
-    icon: categoryArr[1]
+    icon: categoryArr[1],
+    userId
   })
     .then(() => { res.redirect('/') })
     .catch(err => console.log(err))
@@ -51,8 +54,9 @@ router.post('/', (req, res) => {
 
 //edit
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Record.findOne({ _id, userId })
     .lean()
     .then((record) => {
       Category.find()
@@ -67,11 +71,12 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
   let { name, category, merchant, date, amount, icon } = req.body
   let categoryArr = []
   categoryArr = categoryArr.concat(category.split(','))
-  return Record.findById(id)
+  return Record.findOne({ _id, userId })
     .then(record => {
       record.name = name
       record.category = categoryArr[0]
@@ -89,8 +94,9 @@ router.put('/:id', (req, res) => {
 
 //delete
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))

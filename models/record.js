@@ -22,6 +22,12 @@ const recordSchema = new Schema({
   },
   icon: {
     type: String
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
   }
 })
 
