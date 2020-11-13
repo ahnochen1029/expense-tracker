@@ -7,8 +7,11 @@ const flash = require('connect-flash')
 const hbshelpers = require('handlebars-helpers')
 const usePassport = require('./config/passport')
 
+require('dotenv').config()
+
+
 const app = express()
-const port = process.env.PORT || 3000
+const PORT = process.env.PORT
 const routes = require('./routes')
 require('./config/mongoose')
 
@@ -16,7 +19,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main', helpers: hbshelpers() }
 app.set('view engine', 'handlebars')
 
 app.use(session({
-  secret: 'Youwillneverknow',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -40,6 +43,6 @@ app.use(express.static('public'))
 app.use(routes)
 
 
-app.listen(port, () => {
-  console.log(`The app is runnung on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`The app is runnung on http://localhost:${PORT}`)
 })
