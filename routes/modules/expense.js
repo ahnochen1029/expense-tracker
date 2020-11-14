@@ -8,26 +8,21 @@ router.get('/time', (req, res) => {
   const month = req.query.month
   const Month = Number(month)
   const userId = req.user._id
-  const datefilter = []
 
   Record.find({ userId })
+    .lean()
+    .sort({ date: 'asc' })
     .then(records => {
+      const dateFilterResult = records.filter(record => record.date.getMonth() + 1 === Month)
+      console.log('dateFilterResult', dateFilterResult)
       let filterAmount = 0
-      records.forEach(record => {
-
-        recordMonth = record.date.getMonth()
-        if (recordMonth + 1 === Month) {
-          datefilter.push(record)
-        }
-      })
-      datefilter.forEach(item => {
+      dateFilterResult.forEach(item => {
         filterAmount += Number(item.amount)
       })
       console.log('filterAmount', filterAmount)
-      console.log('datefilter', datefilter)
       return res.render('index', {
         totalAmount: filterAmount.toLocaleString('zh-TW'),
-        records: datefilter,
+        records: dateFilterResult,
       })
     })
     .catch(err => console.log(err))
