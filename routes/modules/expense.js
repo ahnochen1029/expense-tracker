@@ -8,7 +8,6 @@ router.get('/time', (req, res) => {
   const month = req.query.month
   const Month = Number(month)
   const userId = req.user._id
-
   Record.find({ userId })
     .lean()
     .sort({ date: 'asc' })
@@ -25,6 +24,7 @@ router.get('/time', (req, res) => {
       return res.render('index', {
         totalAmount: filterAmount.toLocaleString('zh-TW'),
         records: dateFilterResult,
+        month
       })
     })
     .catch(err => console.log(err))
@@ -89,6 +89,7 @@ router.get('/:id/edit', (req, res) => {
   return Record.findOne({ _id, userId })
     .lean()
     .then((record) => {
+      record.date = record.date.toISOString().slice(0, 10)
       Category.find()
         .lean()
         .then(category => {
@@ -104,6 +105,7 @@ router.put('/:id', (req, res) => {
   const _id = req.params.id
   const userId = req.user._id
   let { name, category, merchant, date, amount, icon } = req.body
+  const DATE = new Date(date)
   let categoryArr = []
   categoryArr = categoryArr.concat(category.split(','))
   return Record.findOne({ _id, userId })
@@ -111,7 +113,7 @@ router.put('/:id', (req, res) => {
       record.name = name
       record.category = categoryArr[0]
       record.merchant = merchant
-      record.date = date
+      record.date = DATE
       record.amount = amount
       record.icon = categoryArr[1]
       return record.save()
