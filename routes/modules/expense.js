@@ -15,8 +15,10 @@ router.get('/time', (req, res) => {
     .then(records => {
       const dateFilterResult = records.filter(record => record.date.getMonth() + 1 === Month)
       console.log('dateFilterResult', dateFilterResult)
+
       let filterAmount = 0
       dateFilterResult.forEach(item => {
+        item.date = item.date.toISOString().slice(0, 10)
         filterAmount += Number(item.amount)
       })
       console.log('filterAmount', filterAmount)
@@ -41,6 +43,7 @@ router.get('/filter', (req, res) => {
       })
       let filterAmount = 0
       filterRecord.forEach(item => {
+        item.date = item.date.toISOString().slice(0, 10)
         filterAmount += Number(item.amount)
       })
       console.log('filterRecord', filterRecord)
@@ -64,6 +67,7 @@ router.post('/', (req, res) => {
   const { name, category, merchant, date, amount, icon } = req.body
   const userId = req.user._id
   let categoryArr = []
+
   categoryArr = categoryArr.concat(category.split(','))
   return Record.create({
     name,

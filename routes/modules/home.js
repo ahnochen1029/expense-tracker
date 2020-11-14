@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
     .then(records => {
       let totalAmount = Number()
       records.forEach(item => {
+        item.date = item.date.toISOString().slice(0, 10)
         totalAmount += Number(item.amount)
       })
       return res.render('index', {
