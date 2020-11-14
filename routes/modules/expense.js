@@ -3,7 +3,38 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
-//filter
+//filter-time
+router.get('/time', (req, res) => {
+  const month = req.query.month
+  const Month = Number(month)
+  const userId = req.user._id
+  const datefilter = []
+
+  Record.find({ userId })
+    .then(records => {
+      let filterAmount = 0
+      records.forEach(record => {
+
+        recordMonth = record.date.getMonth()
+        if (recordMonth + 1 === Month) {
+          datefilter.push(record)
+        }
+      })
+      datefilter.forEach(item => {
+        filterAmount += Number(item.amount)
+      })
+      console.log('filterAmount', filterAmount)
+      console.log('datefilter', datefilter)
+      return res.render('index', {
+        totalAmount: filterAmount.toLocaleString('zh-TW'),
+        records: datefilter,
+      })
+    })
+    .catch(err => console.log(err))
+})
+
+
+//filter-Category
 router.get('/filter', (req, res) => {
   const filterCategory = req.query.filter
   const userId = req.user._id
@@ -17,7 +48,7 @@ router.get('/filter', (req, res) => {
       filterRecord.forEach(item => {
         filterAmount += Number(item.amount)
       })
-
+      console.log('filterRecord', filterRecord)
       return res.render('index', {
         records: filterRecord,
         totalAmount: filterAmount.toLocaleString('zh-TW'),

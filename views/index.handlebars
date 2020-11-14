@@ -17,6 +17,27 @@
       <noscript><input type="submit" value="Submit"></noscript>
     </form>
   </div>
+  <div class="form-group ml-5">
+    <form action="/expensetracker/time" method="GET">
+      <select class="form-control mt-4" id="sortMonth" name='month' style="width: fit-content;">
+        <option disabled selected>月份</option>
+        <option value="1">一月</option>
+        <option value="2">二月</option>
+        <option value="3">三月</option>
+        <option value="4">四月</option>
+        <option value="5">五月</option>
+        <option value="6">六月</option>
+        <option value="7">七月</option>
+        <option value="8">八月</option>
+        <option value="9">九月</option>
+        <option value="10">十月</option>
+        <option value="11">十一月</option>
+        <option value="12">十二月</option>
+      </select>
+      <button class="btn btn-primary">搜尋</button>
+      {{!-- <noscript><input type="submit" value="Submit"></noscript> --}}
+    </form>
+  </div>
   <div class="pl-5">
     <a class="btn btn-light" href="/expensetracker/new">新增支出明細</a>
   </div>

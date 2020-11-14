@@ -35,7 +35,7 @@ db.once('open', () => {
             name: '鐵板燒',
             category: '餐飲食品',
             merchant: '好吃鐵板燒',
-            date: '2020-08-01',
+            date: new Date(2020, 8, 1),
             amount: 350,
             icon: 'fas fa-utensils',
             userId
@@ -44,7 +44,7 @@ db.once('open', () => {
             name: '高鐵票',
             category: '交通出行',
             merchant: '台灣高鐵',
-            date: '2020-08-10',
+            date: new Date(2020, 8, 10),
             amount: 700,
             icon: 'fas fa-shuttle-van',
             userId
@@ -53,7 +53,7 @@ db.once('open', () => {
             name: '房租',
             category: '家居物業',
             merchant: '其他',
-            date: '2020-08-20',
+            date: new Date(2020, 8, 20),
             amount: 15000,
             icon: 'fas fa-home',
             userId
@@ -62,7 +62,7 @@ db.once('open', () => {
             name: '看棒球',
             category: '休閒娛樂',
             merchant: 'CPBL',
-            date: '2020-08-21',
+            date: new Date(2020, 8, 25),
             amount: 500,
             icon: 'fas fa-grin-beam',
             userId
@@ -71,7 +71,7 @@ db.once('open', () => {
             name: '保單',
             category: '其他',
             merchant: '富邦人壽',
-            date: '2020-08-26',
+            date: new Date(2020, 9, 1),
             amount: 2500,
             icon: 'fas fa-pen',
             userId
