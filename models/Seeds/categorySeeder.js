@@ -2,14 +2,13 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-
 const Category = require('../category')
 
 const db = require('../../config/mongoose')
 
 db.once('open', () => {
   Category.create(
-    [{
+    {
       category: '家居物業',
       icon: 'fas fa-home'
     },
@@ -28,8 +27,12 @@ db.once('open', () => {
     {
       category: '其他',
       icon: 'fas fa-pen'
-    }]
+    }
   )
-    .then(() => db.close)
+    .then(() => {
+      db.close()
+      console.log('created category!')
+    })
+    .catch(err => console.log(err))
   console.log('mongodb_category connected!')
 })
