@@ -7,9 +7,9 @@ const flash = require('connect-flash')
 const hbshelpers = require('handlebars-helpers')
 const usePassport = require('./config/passport')
 
-require('dotenv').config()
-
-
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const app = express()
 const PORT = process.env.PORT
 const routes = require('./routes')
